@@ -1,0 +1,51 @@
+:root {
+	--blue: #0795ff;
+	--white: #fff;
+	--black: #000;
+	--font-color-light-theme: #fdfdff;
+	--font-color-dark-theme: #1d1d20;
+	--bg-dark-theme: #ffffff;
+}
+.wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	-ms-flex-direction: column;
+	justify-content: space-between;
+}
+.wrapper main {
+	text-align: center;
+}
+._container-inner form .form-control {
+	opacity: 0;
+	visibility: hidden;
+	display: none;
+	appearance: none;
+	-webkit-appearance: none;
+}
+._container-inner h1 {
+	color: var(--font-color-dark-theme);
+}
+._custom-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2rem;
+}
+._custom-button button {
+	background-color: var(--blue);
+	color: var(--white);
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	column-gap: 5px;
+	justify-content: center;
+	min-height: 3rem;
+	padding: 0 2rem;
+	font-size: 0.95rem;
+}
+._custom-button button em {
+	line-height: 1;
+	display: flex;
+	font-size: 1.3rem;
+}

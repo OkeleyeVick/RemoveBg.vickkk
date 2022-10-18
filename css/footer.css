@@ -1,0 +1,31 @@
+body {
+	--font-color-light-theme: #fdfdff;
+	--font-color-dark-theme: #1d1d20;
+	--bg-dark-theme: #ffffff;
+	--nav-bar-bg: #fff;
+}
+footer .footer-inner {
+	-webkit-transition: 300ms ease;
+	-moz-transition: 300ms ease;
+	-ms-transition: 300ms ease;
+	-o-transition: 300ms ease;
+	transition: 300ms ease;
+	padding: 1.2rem 0;
+	background-color: var(--font-color-dark-theme);
+}
+.footer-inner .copy-right span {
+	display: flex;
+	align-items: center;
+	font-size: 0.9rem;
+	justify-content: center;
+	color: var(--font-color-light-theme);
+}
+.footer-inner .copy-right span em {
+	line-height: 1;
+	display: flex;
+	margin: 0 4px;
+}
+.footer-inner .copy-right span:has(span) span {
+	margin-left: 5px;
+	font-size: 1.2rem;
+}
