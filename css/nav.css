@@ -70,11 +70,11 @@ body.dark {
 	position: relative;
 }
 .wrapper {
-	-webkit-transition: 300ms ease;
-	-moz-transition: 300ms ease;
-	-ms-transition: 300ms ease;
-	-o-transition: 300ms ease;
-	transition: 300ms ease;
+	-webkit-transition: 100ms ease;
+	-moz-transition: 100ms ease;
+	-ms-transition: 100ms ease;
+	-o-transition: 100ms ease;
+	transition: 100ms ease;
 	background-color: var(--font-color-light-theme);
 }
 header #logo {
