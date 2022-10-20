@@ -9,7 +9,7 @@ const icontheme = localStorage.getItem("icontheme");
 custom_button.addEventListener("click", callCustomInput);
 window.addEventListener("load", function () {
 	body.classList.toggle(theme === "dark" ? "dark" : "light");
-	em.classList.toggle(icontheme === "bi-sun-fill" ? "bi-sun-fill" : "bi-moon-fill");
+	em.classList.toggle(icontheme === "bi bi-sun-fill" ? "bi bi-sun-fill" : "bi bi-moon-fill");
 });
 
 function callCustomInput(e) {
