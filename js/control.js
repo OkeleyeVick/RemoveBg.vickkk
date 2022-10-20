@@ -18,7 +18,7 @@ function callCustomInput(e) {
 	default_input.click();
 }
 
-// for refactoring, use the object method on localStorage
+// for refactoring, use the object method on localStorage for later
 // const themeChange = {
 // 	light: {},
 // };
