@@ -50,7 +50,7 @@ button {
 	all: unset;
 }
 /* page styles */
-body {
+body.light {
 	--black: #000;
 	--font-color-light-theme: #fdfdff;
 	--font-color-dark-theme: #1d1d20;
