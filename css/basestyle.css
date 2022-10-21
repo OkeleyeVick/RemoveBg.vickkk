@@ -10,7 +10,7 @@
 ._image-wrapper {
 	color: var(--font-color-dark-theme);
 	max-width: 960px;
-	margin: 40px auto;
+	margin: 4rem auto;
 	padding: 1rem;
 	position: relative;
 	border-radius: 10px;
@@ -26,11 +26,39 @@
 	._image-wrapper {
 		padding: 1rem 2rem;
 	}
+	.tab-content .image-content {
+		padding: 0 3rem;
+	}
+	.tab-content .image-wrapper {
+		padding: 0 3rem;
+	}
+}
+.image-container {
+	row-gap: 2rem;
 }
 .tab-control button.close-result em {
 	line-height: 1;
 	display: flex;
 	font-size: 1.5rem;
+}
+.tab-content .download-average {
+	display: flex;
+	flex-direction: column;
+	-ms-flex-direction: column;
+	row-gap: 0.2em;
+}
+.tab-content .download-average a {
+	font-size: 1rem;
+	color: var(--white);
+	border-radius: 6px;
+	background-color: var(--blue);
+	width: max-content;
+	padding: 0.7rem 3rem;
+	margin-inline: auto;
+}
+.tab-content .download-average small {
+	font-size: 0.8rem;
+	color: var(--black);
 }
 .nav-pills .nav-link {
 	border-bottom: 2px solid transparent;
@@ -69,6 +97,7 @@
 }
 ._container-inner h1 {
 	color: var(--font-color-dark-theme);
+	font-size: 2.9rem;
 }
 ._custom-button {
 	display: flex;
