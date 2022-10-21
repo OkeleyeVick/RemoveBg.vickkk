@@ -48,32 +48,41 @@ const inputFile = document.getElementById("imageFile");
 
 // main actions
 inputFile.addEventListener("change", (e) => {
-	// let imageValue = inputFile.value;
 	let imageValue = e.target.files[0];
-	// imageValue = imageValue.slice(12);
-	apiCall(imageValue);
+	convertToBase64(imageValue);
 });
 
-function apiCall(imageValue) {
+function convertToBase64(imageValue) {
+	let imageConvertedToBase64;
+	const reader = new FileReader();
+
+	reader.addEventListener("load", function () {
+		imageConvertedToBase64 = reader.result.replace("data:", "").replace(/^.+,/, "");
+		apiCall(imageConvertedToBase64);
+	});
+	reader.readAsDataURL(imageValue);
+}
+
+function apiCall(imageConvertedToBase64) {
+	const URL = "https://remove-bground.p.rapidapi.com/";
 	const apiKey = "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a";
 
-	const form = new FormData();
-	form.append("image", imageValue);
+	const data = new FormData();
+	data.append("file", imageConvertedToBase64);
 
-	const encodedParams = new URLSearchParams();
-	encodedParams.append("image", `${imageValue}`);
+	// const encodedParams = new URLSearchParams();
+	// encodedParams.append("image_base64", `${imageConvertedToBase64}`);
 
 	const options = {
 		method: "POST",
 		headers: {
-			"content-type": "application/x-www-form-urlencoded",
 			"X-RapidAPI-Key": `${apiKey}`,
-			"X-RapidAPI-Host": "background-removal4.p.rapidapi.com",
+			"X-RapidAPI-Host": "remove-bground.p.rapidapi.com",
 		},
-		body: encodedParams,
+		body: data,
 	};
 
-	fetch("https://background-removal4.p.rapidapi.com/v1/results?mode=fg-image", options)
+	fetch(`${URL}`, options)
 		.then((response) => response.json())
 		.then((response) => console.log(response))
 		.catch((err) => console.error(err));
