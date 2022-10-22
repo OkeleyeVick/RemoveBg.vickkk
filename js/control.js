@@ -194,9 +194,9 @@ function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 }
 
 // delete image wrapper if exist
-function deleteImageWrapper() {
-	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
-}
+const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
+deleteImageWrapperBtn.addEventListener("click", functio);
+function callDeleteAction() {}
 
 // todos
 /* 
