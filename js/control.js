@@ -53,6 +53,16 @@ inputFile.addEventListener("change", (e) => {
 });
 
 function apiCall(imageValue) {
+	let finalOriginalImage; //original image
+
+	if (imageValue) {
+		const imageFile = new FileReader();
+		imageFile.readAsDataURL(imageValue);
+		imageFile.addEventListener("loadend", function () {
+			finalOriginalImage = imageFile.result;
+		});
+	}
+
 	const URL = "https://universal-background-removal.p.rapidapi.com/cutout/universal/common-image";
 	const apiKey = "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a";
 
@@ -70,7 +80,10 @@ function apiCall(imageValue) {
 
 	fetch(URL, options)
 		.then((response) => response.json())
-		.then((response) => console.log(response))
+		.then((response) => {
+			const { image_url, image_id } = response.data;
+			createImageResultTemplate(finalOriginalImage, image_url, image_id);
+		})
 		.catch((err) => console.error(err));
 }
 
@@ -81,34 +94,15 @@ button.setAttribute("type", "button");
 const text = document.createTextNode("Upload Image");
 button.appendChild(text);
 
-// function to add extra images
+// function to add new images to remove background image
 function addExtraImages() {
 	button.addEventListener("click", callCustomInput);
 }
 addExtraImages();
 
-// add an image if image is entered
-function addExtraImagesd() {
-	const _imageWrapper = document.createElement("div");
-	_imageWrapper.classList.add("_image-wrapper");
-}
-
-// delete image wrapper if exist
-function deleteImageWrapper() {
-	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
-}
-
-// create img tag for original Image
-let OriginalImage = document.createElement("img");
-OriginalImage.classList.add("img-fluid");
-OriginalImage.setAttribute("src", "");
-
-// create img tag for removed bg Image
-let RemovedBgImage = document.createElement("img");
-RemovedBgImage.classList.add("img-fluid");
-RemovedBgImage.setAttribute("src", "");
-
-const imageWrapper = `<section class="_image-wrapper">
+// create a template to show the original and bg-removed image
+function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
+	const imageWrapper = `<section class="_image-wrapper">
 						<div class="tab-control d-flex align-items-center justify-content-between">
 							<ul class="nav nav-pills" id="pills-tab" role="tablist">
 								<li class="nav-item" role="presentation">
@@ -119,7 +113,7 @@ const imageWrapper = `<section class="_image-wrapper">
 										data-bs-target="#pills-original-image"
 										type="button"
 										role="tab"
-										aria-controls="pills-original-image"
+										aria	-controls="pills-original-image"
 										aria-selected="true">
 										Original Image
 									</button>
@@ -162,7 +156,9 @@ const imageWrapper = `<section class="_image-wrapper">
 								tabindex="0">
 								<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 									<div class="image-wrapper col-md-7 p-0">
-										<img src="./images/484120.jpg" alt="" class="img-fluid" />
+										<!-- original image starts-->
+										<img src="${finalOriginalImage}" alt="" class="img-fluid" />
+										<!-- original image ends-->
 									</div>
 									<div class="image-content col-md-4">
 										<div class="download-average">
@@ -177,7 +173,9 @@ const imageWrapper = `<section class="_image-wrapper">
 							<div class="tab-pane fade" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
 								<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 									<div class="image-wrapper col-md-7 p-0">
-										<img src="./images/484120.jpg" alt="" class="img-fluid" />
+										<!-- bg-removed image starts-->
+									<img src="${image_url}" alt="" id=${image_id} class="img-fluid" />
+										<!-- bg-removed image ends-->
 									</div>
 									<div class="image-content col-md-4">
 										<div class="download-average">
@@ -191,3 +189,20 @@ const imageWrapper = `<section class="_image-wrapper">
 							</div>
 						</div>
 					</section>`;
+
+	_containerInner.innerHTML = imageWrapper;
+}
+
+// delete image wrapper if exist
+function deleteImageWrapper() {
+	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
+}
+
+// todos
+/* 
+1. Add a preloader that displays when image is undergoing bg removing procedure
+2. Work on the template button to close it
+3. Work on the new input field at the top of all the templates
+4. Fix the templates so that it tallies with the toggles of theme
+5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image
+*/
