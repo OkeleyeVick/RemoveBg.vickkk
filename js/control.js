@@ -100,111 +100,124 @@ function addExtraImages() {
 }
 addExtraImages();
 
-// array that takes in a list of template
+// array that takes in a list of templates
 let templateArray = [];
 
 // create a template to show the original and bg-removed image
 function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
-	const imageWrapper = `<section class="_image-wrapper">
-						<div class="tab-control d-flex align-items-center justify-content-between">
-							<ul class="nav nav-pills" id="pills-tab" role="tablist">
-								<li class="nav-item" role="presentation">
-									<button
-										class="nav-link active"
-										id="pills-original-image-tab"
-										data-bs-toggle="pill"
-										data-bs-target="#pills-original-image"
-										type="button"
-										role="tab"
-										aria	-controls="pills-original-image"
-										aria-selected="true">
-										Original Image
-									</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button
-										class="nav-link"
-										id="pills-removed-bg-tab"
-										data-bs-toggle="pill"
-										data-bs-target="#pills-removed-bg"
-										type="button"
-										role="tab"
-										aria-controls="pills-removed-bg"
-										aria-selected="false">
-										Removed Background
-									</button>
-								</li>
-							</ul>
-							<button class="close-result">
-								<em>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="1em"
-										height="1em"
-										preserveAspectRatio="xMidYMid meet"
-										viewBox="0 0 20 20">
-										<path
-											fill="currentColor"
-											d="m3.219 2.154l6.778 6.773l6.706-6.705c.457-.407.93-.164 1.119.04a.777.777 0 0 1-.044 1.035l-6.707 6.704l6.707 6.702c.298.25.298.74.059 1.014c-.24.273-.68.431-1.095.107l-6.745-6.749l-6.753 6.752c-.296.265-.784.211-1.025-.052c-.242-.264-.334-.72-.025-1.042l6.729-6.732l-6.701-6.704c-.245-.27-.33-.764 0-1.075c.33-.311.822-.268.997-.068Z" />
-									</svg>
-								</em>
-							</button>
-						</div>
-						<div class="tab-content my-5" id="pills-tabContent">
-							<div
-								class="tab-pane fade show active"
-								id="pills-original-image"
-								role="tabpanel"
-								aria-labelledby="pills-original-image-tab"
-								tabindex="0">
-								<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
-									<div class="image-wrapper col-md-7 p-0">
-										<!-- original image starts-->
-										<img src="${finalOriginalImage}" alt="" class="img-fluid" />
-										<!-- original image ends-->
+	const imageWrapper = `<section class="_image-wrapper" id=${image_id}>
+							<div class="tab-control d-flex align-items-center justify-content-between">
+								<ul class="nav nav-pills" id="pills-tab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button
+											class="nav-link active"
+											id="pills-original-image-tab"
+											data-bs-toggle="pill"
+											data-bs-target="#pills-original-image"
+											type="button"
+											role="tab"
+											aria	-controls="pills-original-image"
+											aria-selected="true">
+											Original Image
+										</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button
+											class="nav-link"
+											id="pills-removed-bg-tab"
+											data-bs-toggle="pill"
+											data-bs-target="#pills-removed-bg"
+											type="button"
+											role="tab"
+											aria-controls="pills-removed-bg"
+											aria-selected="false">
+											Removed Background
+										</button>
+									</li>
+								</ul>
+								<button class="close-result">
+									<em>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="1em"
+											height="1em"
+											preserveAspectRatio="xMidYMid meet"
+											viewBox="0 0 20 20">
+											<path
+												fill="currentColor"
+												d="m3.219 2.154l6.778 6.773l6.706-6.705c.457-.407.93-.164 1.119.04a.777.777 0 0 1-.044 1.035l-6.707 6.704l6.707 6.702c.298.25.298.74.059 1.014c-.24.273-.68.431-1.095.107l-6.745-6.749l-6.753 6.752c-.296.265-.784.211-1.025-.052c-.242-.264-.334-.72-.025-1.042l6.729-6.732l-6.701-6.704c-.245-.27-.33-.764 0-1.075c.33-.311.822-.268.997-.068Z" />
+										</svg>
+									</em>
+								</button>
+							</div>
+							<div class="tab-content my-5" id="pills-tabContent">
+								<div
+									class="tab-pane fade show active"
+									id="pills-original-image"
+									role="tabpanel"
+									aria-labelledby="pills-original-image-tab"
+									tabindex="0">
+									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
+										<div class="image-wrapper col-md-7 p-0">
+											<!-- original image starts-->
+											<img src="${finalOriginalImage}" alt="" class="img-fluid" />
+											<!-- original image ends-->
+										</div>
+										<div class="image-content col-md-4">
+											<div class="download-average">
+												<a href="gotten image path" download>Download</a>
+												<small>
+													<span>Preview Size: 608 * 410</span>
+												</small>
+											</div>
+										</div>
 									</div>
-									<div class="image-content col-md-4">
-										<div class="download-average">
-											<a href="gotten image path" download>Download</a>
-											<small>
-												<span>Preview Size: 608 * 410</span>
-											</small>
+								</div>
+								<div class="tab-pane fade" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
+									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
+										<div class="image-wrapper col-md-7 p-0">
+											<!-- bg-removed image starts-->
+										<img src="${image_url}" alt="" class="img-fluid" />
+											<!-- bg-removed image ends-->
+										</div>
+										<div class="image-content col-md-4">
+											<div class="download-average">
+												<a href="gotten image path" download>Download</a>
+												<small>
+													<span>Preview Size: 608 * 410</span>
+												</small>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="tab-pane fade" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
-								<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
-									<div class="image-wrapper col-md-7 p-0">
-										<!-- bg-removed image starts-->
-									<img src="${image_url}" alt="" id=${image_id} class="img-fluid" />
-										<!-- bg-removed image ends-->
-									</div>
-									<div class="image-content col-md-4">
-										<div class="download-average">
-											<a href="gotten image path" download>Download</a>
-											<small>
-												<span>Preview Size: 608 * 410</span>
-											</small>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>`;
-
-	_containerInner.innerHTML = imageWrapper;
+						</section>`;
+	templateArray.push(imageWrapper);
+	displayTemplate();
+	deleteTemplate(image_id);
 }
 
-// delete image wrapper if exist
-const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
-deleteImageWrapperBtn.addEventListener("click", callDeleteAction);
-function callDeleteAction() {}
+function displayTemplate() {
+	// function to delete Template if it exist
+	_containerInner.innerHTML = "";
+	templateArray.forEach((template) => {
+		_containerInner.innerHTML += template;
+	});
+}
+
+function deleteTemplate(image_id) {
+	// delete image wrapper if exist
+	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
+	const templateId = document.getElementById(`${image_id}`);
+	deleteImageWrapperBtn.addEventListener("click", function () {
+		templateArray.filter(() => !templateId);
+	});
+}
 
 // todos
 /* 
 1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure
-2. Work on the template button to close it
+2. Work on the template button to close it or rather delete it if not needed
 3. Work on the new input field at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
 5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image

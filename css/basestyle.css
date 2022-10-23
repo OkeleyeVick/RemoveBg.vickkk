@@ -36,6 +36,13 @@
 .image-container {
 	row-gap: 2rem;
 }
+
+.image-container .image-wrapper {
+	position: relative;
+	background-image: url("../images/background.svg");
+	min-height: 300px;
+	overflow: hidden;
+}
 .tab-control button.close-result em {
 	line-height: 1;
 	display: flex;
