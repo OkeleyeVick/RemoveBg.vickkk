@@ -100,6 +100,9 @@ function addExtraImages() {
 }
 addExtraImages();
 
+// array that takes in a list of template
+let templateArray = [];
+
 // create a template to show the original and bg-removed image
 function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 	const imageWrapper = `<section class="_image-wrapper">
@@ -195,12 +198,12 @@ function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 
 // delete image wrapper if exist
 const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
-deleteImageWrapperBtn.addEventListener("click", functio);
+deleteImageWrapperBtn.addEventListener("click", callDeleteAction);
 function callDeleteAction() {}
 
 // todos
 /* 
-1. Add a preloader that displays when image is undergoing bg removing procedure
+1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure
 2. Work on the template button to close it
 3. Work on the new input field at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
