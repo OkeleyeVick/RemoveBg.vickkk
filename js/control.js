@@ -86,8 +86,9 @@ async function apiCall(imageValue) {
 	await fetch(URL, options)
 		.then((response) => response.json())
 		.then((response) => {
-			const { image_url, image_id } = response.data;
-			pushToArrayAndDisplay(finalOriginalImage, image_url, image_id);
+			const [image_url, request_id] = [response.data.image_url, response.request_id];
+			console.log(response);
+			pushToArrayAndDisplay(finalOriginalImage, image_url, request_id);
 		})
 		.catch((err) => console.error(err));
 }
@@ -107,13 +108,14 @@ button.appendChild(text);
 button.addEventListener("click", callCustomInput);
 
 // create a template to pass the original and bg-removed image to the array
-function pushToArrayAndDisplay(finalOriginalImage, image_url, image_id) {
+function pushToArrayAndDisplay(finalOriginalImage, image_url, request_id) {
 	const templateItem = {
 		originalImage: `${finalOriginalImage}`,
-		imageId: `${image_id}`,
+		imageId: `${request_id}`,
 		imageURL: `${image_url}`,
 	};
 	templateArray.push(templateItem);
+	console.log(templateArray);
 	// display content
 	DisplayTemplates();
 }
@@ -206,7 +208,7 @@ function addTemplatesToContent() {
 							</div>
 							<div class="tab-content my-5" id="pills-tabContent">
 								<div
-									class="tab-pane fade show active"
+									class="tab-pane fade "
 									id="pills-original-image"
 									role="tabpanel"
 									aria-labelledby="pills-original-image-tab"
@@ -227,7 +229,7 @@ function addTemplatesToContent() {
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
+								<div class="tab-pane fade show active" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- bg-removed image starts-->
@@ -255,8 +257,8 @@ function addTemplatesToContent() {
 function DisplayTemplates() {
 	const templatesResult = addTemplatesToContent();
 	if (templateArray !== "") {
-		_containerInner.insertBefore(button, templatesResult);
-		_containerInner.appendChild(templatesResult);
+		_containerInner.innerHTML += templatesResult;
+		// _containerInner.appendChild(templatesResult);
 	} else {
 		_containerInner.innerHTML = defaultDisplay;
 	}
@@ -270,4 +272,6 @@ function DisplayTemplates() {
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
 5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image
+6. The download part of image, create a function for it
+7. The striped white and black image should only show at the removed bg
 */
