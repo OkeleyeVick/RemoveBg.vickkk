@@ -82,10 +82,13 @@ function apiCall(imageValue) {
 		.then((response) => response.json())
 		.then((response) => {
 			const { image_url, image_id } = response.data;
-			createImageResultTemplate(finalOriginalImage, image_url, image_id);
+			pushToTemplateArray(finalOriginalImage, image_url, image_id);
 		})
 		.catch((err) => console.error(err));
 }
+
+// array that takes in a list of templates
+let templateArray = [];
 
 const buttonWrapper = document.createElement("div");
 buttonWrapper.classList.add("_custom-button");
@@ -100,12 +103,58 @@ function addExtraImages() {
 }
 addExtraImages();
 
-// array that takes in a list of templates
-let templateArray = [];
+// create a template to pass the original and bg-removed image to the array
+function pushToTemplateArray(finalOriginalImage, image_url, image_id) {
+	const templateItem = {
+		originalImage: `${finalOriginalImage}`,
+		imageId: `${image_id}`,
+		imageURL: `${image_url}`,
+	};
+	templateArray.push(templateItem);
+}
 
-// create a template to show the original and bg-removed image
-function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
-	const imageWrapper = `<section class="_image-wrapper" id=${image_id}>
+// default display
+const defaultDisplay = `<h1>Upload an image to remove background</h1>
+							<form action="" class="form-wrapper">
+								<div class="mb-3">
+									<input
+										class="form-control"
+										type="file"
+										id="imageFile"
+										accept="image/png, image/jpeg, image/jpg, *.jpeg, *.jpg, *.png" />
+									<div class="_custom-button">
+										<button type="button">
+											<em>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="1em"
+													height="1em"
+													preserveAspectRatio="xMidYMid meet"
+													viewBox="0 0 24 24">
+													<g
+														fill="none"
+														stroke="currentColor"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														stroke-width="2">
+														<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7m4 2h6m-3-3v6" />
+														<circle cx="9" cy="9" r="2" />
+														<path d="m21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+													</g>
+												</svg>
+											</em>
+											<span>Upload Image</span>
+										</button>
+									</div>
+								</div>
+							</form>`;
+
+let templateContent;
+// function to display template
+function displayTemplate() {
+	templateArray.map((eachTemplateItem) => {
+		const { originalImage, imageId, imageURL } = eachTemplateItem;
+		templateContent = `<section class="_image-wrapper" id=${imageId}>
 							<div class="tab-control d-flex align-items-center justify-content-between">
 								<ul class="nav nav-pills" id="pills-tab" role="tablist">
 									<li class="nav-item" role="presentation">
@@ -160,7 +209,7 @@ function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- original image starts-->
-											<img src="${finalOriginalImage}" alt="" class="img-fluid" />
+											<img src="${originalImage}" alt="" class="img-fluid" />
 											<!-- original image ends-->
 										</div>
 										<div class="image-content col-md-4">
@@ -177,7 +226,7 @@ function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- bg-removed image starts-->
-										<img src="${image_url}" alt="" class="img-fluid" />
+										<img src="${imageURL}" alt="" class="img-fluid" />
 											<!-- bg-removed image ends-->
 										</div>
 										<div class="image-content col-md-4">
@@ -192,26 +241,12 @@ function createImageResultTemplate(finalOriginalImage, image_url, image_id) {
 								</div>
 							</div>
 						</section>`;
-	templateArray.push(imageWrapper);
-	displayTemplate();
-	deleteTemplate(image_id);
-}
-
-function displayTemplate() {
-	// function to delete Template if it exist
-	_containerInner.innerHTML = "";
-	templateArray.forEach((template) => {
-		_containerInner.innerHTML += template;
+		return templateContent;
 	});
 }
 
 function deleteTemplate(image_id) {
-	// delete image wrapper if exist
 	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
-	const templateId = document.getElementById(`${image_id}`);
-	deleteImageWrapperBtn.addEventListener("click", function () {
-		templateArray.filter(() => !templateId);
-	});
 }
 
 // todos
