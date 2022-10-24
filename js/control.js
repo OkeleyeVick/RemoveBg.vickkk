@@ -57,7 +57,7 @@ inputFile.addEventListener("change", (e) => {
 });
 
 // api call
-function apiCall(imageValue) {
+async function apiCall(imageValue) {
 	let finalOriginalImage; //original image
 
 	if (imageValue) {
@@ -83,11 +83,11 @@ function apiCall(imageValue) {
 		body: data,
 	};
 
-	fetch(URL, options)
+	await fetch(URL, options)
 		.then((response) => response.json())
 		.then((response) => {
 			const { image_url, image_id } = response.data;
-			pushToTemplateArray(finalOriginalImage, image_url, image_id);
+			pushToArrayAndDisplay(finalOriginalImage, image_url, image_id);
 		})
 		.catch((err) => console.error(err));
 }
@@ -107,13 +107,15 @@ button.appendChild(text);
 button.addEventListener("click", callCustomInput);
 
 // create a template to pass the original and bg-removed image to the array
-function pushToTemplateArray(finalOriginalImage, image_url, image_id) {
+function pushToArrayAndDisplay(finalOriginalImage, image_url, image_id) {
 	const templateItem = {
 		originalImage: `${finalOriginalImage}`,
 		imageId: `${image_id}`,
 		imageURL: `${image_url}`,
 	};
 	templateArray.push(templateItem);
+	// display content
+	DisplayTemplates();
 }
 
 // default display
@@ -152,10 +154,10 @@ const defaultDisplay = `<h1>Upload an image to remove background</h1>
 								</div>
 							</form>`;
 
-let templateContent;
 // function to display template
-function addContentToTemplates() {
+function addTemplatesToContent() {
 	const templates = templateArray.map((eachTemplateItem) => {
+		let templateContent;
 		const { originalImage, imageId, imageURL } = eachTemplateItem;
 		templateContent = `<section class="_image-wrapper" id=${imageId}>
 							<div class="tab-control d-flex align-items-center justify-content-between">
@@ -249,8 +251,9 @@ function addContentToTemplates() {
 	return templates;
 }
 
+// function to display templates
 function DisplayTemplates() {
-	const templatesResult = addContentToTemplates();
+	const templatesResult = addTemplatesToContent();
 	if (templateArray !== "") {
 		_containerInner.insertBefore(button, templatesResult);
 		_containerInner.appendChild(templatesResult);
@@ -258,6 +261,7 @@ function DisplayTemplates() {
 		_containerInner.innerHTML = defaultDisplay;
 	}
 }
+// ? Dont Forget to call the immediate above function to display the contents in the array
 
 // todos
 /* 
