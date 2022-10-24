@@ -6,12 +6,15 @@ const em = themeToggler.children.item("em");
 const theme = localStorage.getItem("theme");
 const icontheme = localStorage.getItem("icontheme");
 
-custom_button.addEventListener("click", callCustomInput);
 window.addEventListener("load", function () {
 	body.classList.toggle(theme === "dark" ? "dark" : "light");
 	em.classList.toggle(icontheme === "bi.bi-sun-fill" ? "bi.bi-sun-fill" : "bi.bi-moon-fill");
 });
 
+// customInput with icon
+custom_button.addEventListener("click", callCustomInput);
+
+// call custom input
 function callCustomInput(e) {
 	e.preventDefault();
 	e.stopPropagation();
@@ -45,6 +48,7 @@ function callCustomInput(e) {
 
 const _containerInner = document.querySelector("._container-inner");
 const inputFile = document.getElementById("imageFile");
+const absoluteContainer = document.querySelector(".main-inner");
 
 // main actions
 inputFile.addEventListener("change", (e) => {
@@ -52,6 +56,7 @@ inputFile.addEventListener("change", (e) => {
 	apiCall(imageValue);
 });
 
+// api call
 function apiCall(imageValue) {
 	let finalOriginalImage; //original image
 
@@ -90,6 +95,7 @@ function apiCall(imageValue) {
 // array that takes in a list of templates
 let templateArray = [];
 
+// create button
 const buttonWrapper = document.createElement("div");
 buttonWrapper.classList.add("_custom-button");
 const button = document.createElement("button");
@@ -97,11 +103,8 @@ button.setAttribute("type", "button");
 const text = document.createTextNode("Upload Image");
 button.appendChild(text);
 
-// function to add new images to remove background image
-function addExtraImages() {
-	button.addEventListener("click", callCustomInput);
-}
-addExtraImages();
+// add new images to remove background image
+button.addEventListener("click", callCustomInput);
 
 // create a template to pass the original and bg-removed image to the array
 function pushToTemplateArray(finalOriginalImage, image_url, image_id) {
@@ -151,8 +154,8 @@ const defaultDisplay = `<h1>Upload an image to remove background</h1>
 
 let templateContent;
 // function to display template
-function displayTemplate() {
-	templateArray.map((eachTemplateItem) => {
+function addContentToTemplates() {
+	const templates = templateArray.map((eachTemplateItem) => {
 		const { originalImage, imageId, imageURL } = eachTemplateItem;
 		templateContent = `<section class="_image-wrapper" id=${imageId}>
 							<div class="tab-control d-flex align-items-center justify-content-between">
@@ -243,17 +246,24 @@ function displayTemplate() {
 						</section>`;
 		return templateContent;
 	});
+	return templates;
 }
 
-function deleteTemplate(image_id) {
-	const deleteImageWrapperBtn = document.querySelector(".tab-control button.close-result");
+function DisplayTemplates() {
+	const templatesResult = addContentToTemplates();
+	if (templateArray !== "") {
+		_containerInner.insertBefore(button, templatesResult);
+		_containerInner.appendChild(templatesResult);
+	} else {
+		_containerInner.innerHTML = defaultDisplay;
+	}
 }
 
 // todos
 /* 
 1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure
 2. Work on the template button to close it or rather delete it if not needed
-3. Work on the new input field at the top of all the templates
+3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
 5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image
 */
