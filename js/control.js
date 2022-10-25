@@ -216,7 +216,9 @@ function addTemplatesToContent() {
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- original image starts-->
-											<img src="${originalImage}" alt="" class="img-fluid" />
+											<a href="${originalImage}" class="img-fluid actual-image" download>
+												<img src="${originalImage}" alt="Your image cannot be view" class="img-fluid"/>
+											</a>
 											<!-- original image ends-->
 										</div>
 										<div class="image-content col-md-4">
@@ -233,7 +235,9 @@ function addTemplatesToContent() {
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- bg-removed image starts-->
-										<img src="${imageURL}" alt="" class="img-fluid" />
+											<a href="${imageURL}" class="img-fluid actual-image" download="removeBg.vickkk-${originalImage}">
+												<img src="${imageURL}" alt="Your image cannot be view" class="img-fluid"/>
+											</a>
 											<!-- bg-removed image ends-->
 										</div>
 										<div class="image-content col-md-4">
@@ -257,6 +261,8 @@ function addTemplatesToContent() {
 function DisplayTemplates() {
 	const templatesResult = addTemplatesToContent();
 	if (templateArray !== "") {
+		const mainInner = document.querySelector(".main-inner .section-container");
+		mainInner.appendChild(buttonWrapper);
 		_containerInner.innerHTML += templatesResult;
 		// _containerInner.appendChild(templatesResult);
 	} else {
@@ -265,6 +271,20 @@ function DisplayTemplates() {
 }
 // ? Dont Forget to call the immediate above function to display the contents in the array
 
+const allDownloadButton = document.querySelectorAll(".download-button");
+allDownloadButton.forEach((eachDownloadBtn) => {
+	downloadImage(eachDownloadBtn);
+});
+
+// function to donwload any image or its button clicked
+function downloadImage(element) {
+	element.addEventListener("click", function (e) {
+		e.stopPropagation();
+		const imageLink = element.parentElement.parentElement.previousElementSibling.firstElementChild;
+		imageLink.click();
+	});
+}
+
 // todos
 /* 
 1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure
@@ -272,6 +292,6 @@ function DisplayTemplates() {
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
 5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image
-6. The download part of image, create a function for it
+6. The download part of image, create a function for it - ✅done 
 7. The striped white and black image should only show at the removed bg
 */

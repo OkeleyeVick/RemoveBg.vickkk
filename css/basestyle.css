@@ -43,6 +43,9 @@
 	min-height: 300px;
 	overflow: hidden;
 }
+.image-container .image-wrapper img {
+	width: 100%;
+}
 .tab-control button.close-result em {
 	line-height: 1;
 	display: flex;
@@ -54,7 +57,7 @@
 	-ms-flex-direction: column;
 	row-gap: 0.2em;
 }
-.tab-content .download-average a {
+.tab-content .download-average .download-button {
 	font-size: 1rem;
 	color: var(--white);
 	border-radius: 6px;
