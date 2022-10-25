@@ -53,6 +53,7 @@ const absoluteContainer = document.querySelector(".main-inner");
 // main actions
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
+	// pass image to the api function
 	apiCall(imageValue);
 });
 
@@ -87,7 +88,6 @@ async function apiCall(imageValue) {
 		.then((response) => response.json())
 		.then((response) => {
 			const [image_url, request_id] = [response.data.image_url, response.request_id];
-			console.log(response);
 			pushToArrayAndDisplay(finalOriginalImage, image_url, request_id);
 		})
 		.catch((err) => console.error(err));
@@ -115,7 +115,6 @@ function pushToArrayAndDisplay(finalOriginalImage, image_url, request_id) {
 		imageURL: `${image_url}`,
 	};
 	templateArray.push(templateItem);
-	console.log(templateArray);
 	// display content
 	DisplayTemplates();
 }
@@ -276,7 +275,7 @@ allDownloadButton.forEach((eachDownloadBtn) => {
 	downloadImage(eachDownloadBtn);
 });
 
-// function to donwload any image or its button clicked
+// function to download image when its clicked or its button is clicked
 function downloadImage(element) {
 	element.addEventListener("click", function (e) {
 		e.stopPropagation();
@@ -287,7 +286,7 @@ function downloadImage(element) {
 
 // todos
 /* 
-1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure
+1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure - Halfway done
 2. Work on the template button to close it or rather delete it if not needed
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
