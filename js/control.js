@@ -64,7 +64,7 @@ async function apiCall(imageValue) {
 	if (imageValue) {
 		const imageFile = new FileReader();
 		imageFile.readAsDataURL(imageValue);
-		imageFile.addEventListener("loadend", function () {
+		imageFile.addEventListener("load", function () {
 			finalOriginalImage = imageFile.result;
 		});
 	}
@@ -216,7 +216,7 @@ function addTemplatesToContent() {
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- original image starts-->
 											<a href="${originalImage}" class="img-fluid actual-image" download>
-												<img src="${originalImage}" alt="Your image cannot be view" class="img-fluid"/>
+												<img src="${originalImage}" alt="Your image cannot be viewed" class="img-fluid"/>
 											</a>
 											<!-- original image ends-->
 										</div>
@@ -234,8 +234,8 @@ function addTemplatesToContent() {
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- bg-removed image starts-->
-											<a href="${imageURL}" class="img-fluid actual-image" download="removeBg.vickkk-${originalImage}">
-												<img src="${imageURL}" alt="Your image cannot be view" class="img-fluid"/>
+											<a href="${imageURL}" class="img-fluid bg-rmvd-image" download="removeBg.vickkk-${originalImage}">
+												<img src="${imageURL}" alt="Your image cannot be viewed" class="img-fluid"/>
 											</a>
 											<!-- bg-removed image ends-->
 										</div>
@@ -284,6 +284,21 @@ function downloadImage(element) {
 	});
 }
 
+function getImageProp() {
+	const originalImage = document.querySelector(".image-wrapper .actual-image img");
+	let image = new Image();
+	let imageHeight, imageWidth;
+	image.addEventListener("load", function () {
+		//get the height & width prop of the image
+		imageHeight = image.naturalHeight;
+		imageWidth = image.naturalWidth;
+	});
+	image.src = originalImage.src;
+	// const imageTagProp = originalImage.getClientBoundingRect();
+	// console.log(imageTagProp);
+}
+
+getImageProp();
 // todos
 /* 
 1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure - Halfway done
