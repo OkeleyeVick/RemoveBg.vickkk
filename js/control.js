@@ -115,12 +115,11 @@ function pushToArrayAndDisplay(finalOriginalImage, image_url, request_id) {
 		imageURL: `${image_url}`,
 	};
 	templateArray.push(templateItem);
-	// display content
-	DisplayTemplates();
+	DisplayTemplates(); // display content
 }
 
 // default display
-const defaultDisplay = `<h1>Upload an image to remove background</h1>
+const defaultDisplay = `<h1>Upload an image to remove background</h1> 
 							<form action="" class="form-wrapper">
 								<div class="mb-3">
 									<input
@@ -155,7 +154,7 @@ const defaultDisplay = `<h1>Upload an image to remove background</h1>
 								</div>
 							</form>`;
 
-// function to display template
+//template new template to templates array
 function addTemplatesToContent() {
 	const templates = templateArray.map((eachTemplateItem) => {
 		let templateContent;
@@ -256,9 +255,11 @@ function addTemplatesToContent() {
 	return templates;
 }
 
-// function to display templates
-function DisplayTemplates() {
+// ! ISSUE DEY OOO, DISPLAYING THE ITEMS TO THE DOM IS WHERE THE ISSUE IS
+//display templates
+function DisplayTemplates(imageHeight, imageWidth) {
 	const templatesResult = addTemplatesToContent();
+	console.log(imageHeight, imageWidth);
 	if (templateArray !== "") {
 		const mainInner = document.querySelector(".main-inner .section-container");
 		mainInner.appendChild(buttonWrapper);
@@ -268,7 +269,6 @@ function DisplayTemplates() {
 		_containerInner.innerHTML = defaultDisplay;
 	}
 }
-// ? Dont Forget to call the immediate above function to display the contents in the array
 
 const allDownloadButton = document.querySelectorAll(".download-button");
 allDownloadButton.forEach((eachDownloadBtn) => {
@@ -284,28 +284,26 @@ function downloadImage(element) {
 	});
 }
 
-function getImageProp() {
+function getImageProps() {
 	const originalImage = document.querySelector(".image-wrapper .actual-image img");
 	let image = new Image();
-	let imageHeight, imageWidth;
 	image.addEventListener("load", function () {
-		//get the height & width prop of the image
-		imageHeight = image.naturalHeight;
-		imageWidth = image.naturalWidth;
+		//get the height & width props of the image
+		const [imageHeight, imageWidth] = [image.naturalHeight, image.naturalWidth];
+		DisplayTemplates(imageHeight, imageWidth);
 	});
 	image.src = originalImage.src;
-	// const imageTagProp = originalImage.getClientBoundingRect();
-	// console.log(imageTagProp);
 }
 
-getImageProp();
+getImageProps();
+
 // todos
 /* 
-1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure - Halfway done
+1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure - ✅💅Half-way done
 2. Work on the template button to close it or rather delete it if not needed
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
-5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image
+5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image - ✅💅Half-way done
 6. The download part of image, create a function for it - ✅done 
-7. The striped white and black image should only show at the removed bg
+7. The striped white and black image should only show at the removed bg - ✅ done
 */
