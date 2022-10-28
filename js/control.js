@@ -258,7 +258,6 @@ function addTemplatesToContent() {
 //display templates
 function DisplayTemplates(imageHeight, imageWidth) {
 	const templatesResult = addTemplatesToContent();
-	console.log(imageHeight, imageWidth);
 	if (templateArray !== "") {
 		const mainInner = document.querySelector(".main-inner .section-container");
 		mainInner.appendChild(buttonWrapper);
@@ -272,12 +271,6 @@ function DisplayTemplates(imageHeight, imageWidth) {
 const allDownloadButton = document.querySelectorAll(".download-button");
 allDownloadButton.forEach((eachDownloadBtn) => {
 	downloadImage(eachDownloadBtn);
-});
-
-// pass templates for id to the delete function
-templateArray.forEach((template) => {
-	const { imageId } = template;
-	deleteTemplate(imageId);
 });
 
 // function to download image when its clicked or its button is clicked
@@ -302,22 +295,29 @@ function getImageProps() {
 
 getImageProps();
 
+// ! ISSUE DEY HERE OOO
+// pass templates for id to the delete function
+templateArray.forEach((template) => {
+	const { imageId } = template;
+
+	const deleteBtns = document.querySelectorAll("button.close-result");
+	deleteBtns.forEach((deleteBtn) => {
+		deleteBtn.addEventListener("click", deleteTemplate(imageId));
+	});
+});
+
 function deleteTemplate(imageId) {
+	let filteredArray;
 	if (templateArray !== "") {
-		const deleteBtns = document.querySelectorAll("button.close-result");
-		deleteBtns.forEach((deleteBtn) => {
-			deleteBtn.addEventListener("click", function () {
-				// filter the array
-				return templateArray.filter((template) => template.imageId !== imageId);
-			});
-		});
+		// filter the array
+		filteredArray = templateArray.filter((template) => template.imageId !== imageId);
 	}
 }
 
 // todos
 /* 
 1. Add a preloader or use skeleton loader that displays when image is undergoing bg removing procedure - ✅💅Half-way done
-2. Work on the template button to close it or rather delete it if not needed
+2. Work on the template button to close it or rather delete it if not needed - ✅💅 Halfway-done
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
 5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image - ✅💅Half-way done
