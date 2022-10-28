@@ -53,8 +53,7 @@ const absoluteContainer = document.querySelector(".main-inner");
 // main actions
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
-	// pass image to the api function
-	apiCall(imageValue);
+	apiCall(imageValue); // pass image to the api function
 });
 
 // api call
@@ -275,6 +274,12 @@ allDownloadButton.forEach((eachDownloadBtn) => {
 	downloadImage(eachDownloadBtn);
 });
 
+// pass templates for id to the delete function
+templateArray.forEach((template) => {
+	const { imageId } = template;
+	deleteTemplate(imageId);
+});
+
 // function to download image when its clicked or its button is clicked
 function downloadImage(element) {
 	element.addEventListener("click", function (e) {
@@ -296,6 +301,18 @@ function getImageProps() {
 }
 
 getImageProps();
+
+function deleteTemplate(imageId) {
+	if (templateArray !== "") {
+		const deleteBtns = document.querySelectorAll("button.close-result");
+		deleteBtns.forEach((deleteBtn) => {
+			deleteBtn.addEventListener("click", function () {
+				// filter the array
+				return templateArray.filter((template) => template.imageId !== imageId);
+			});
+		});
+	}
+}
 
 // todos
 /* 
