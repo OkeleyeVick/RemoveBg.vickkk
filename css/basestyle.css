@@ -60,7 +60,7 @@
 	row-gap: 0.2em;
 }
 .tab-content .download-average .download-button {
-	font-size: 1rem;
+	font-size: 0.95rem;
 	color: var(--white);
 	border-radius: 6px;
 	background-color: var(--blue);

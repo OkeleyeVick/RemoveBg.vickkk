@@ -163,20 +163,20 @@ function addTemplatesToContent() {
 								<ul class="nav nav-pills" id="pills-tab" role="tablist">
 									<li class="nav-item" role="presentation">
 										<button
-											class="nav-link active"
+											class="nav-link"
 											id="pills-original-image-tab"
 											data-bs-toggle="pill"
 											data-bs-target="#pills-original-image"
 											type="button"
 											role="tab"
-											aria	-controls="pills-original-image"
+											aria-controls="pills-original-image"
 											aria-selected="true">
 											Original Image
 										</button>
 									</li>
 									<li class="nav-item" role="presentation">
 										<button
-											class="nav-link"
+											class="nav-link active"
 											id="pills-removed-bg-tab"
 											data-bs-toggle="pill"
 											data-bs-target="#pills-removed-bg"
@@ -214,15 +214,15 @@ function addTemplatesToContent() {
 										<div class="image-wrapper col-md-7 p-0">
 											<!-- original image starts-->
 											<a href="${originalImage}" class="img-fluid actual-image" download>
-												<img src="${originalImage}" alt="Your image cannot be viewed" class="img-fluid"/>
+												<img src="${originalImage}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
 											</a>
 											<!-- original image ends-->
 										</div>
 										<div class="image-content col-md-4">
 											<div class="download-average">
-												<a href="gotten image path" download>Download</a>
+												<button class="download-button" type="button">Download</button>
 												<small>
-													<span>Preview Size: 608 * 410</span>
+													<span>Preview Size: 620 * 380</span>
 												</small>
 											</div>
 										</div>
@@ -230,18 +230,18 @@ function addTemplatesToContent() {
 								</div>
 								<div class="tab-pane fade show active" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
 									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
-										<div class="image-wrapper col-md-7 p-0">
+										<div class="image-wrapper rm-bg col-md-7 p-0">
 											<!-- bg-removed image starts-->
 											<a href="${imageURL}" class="img-fluid bg-rmvd-image" download="removeBg.vickkk-${originalImage}">
-												<img src="${imageURL}" alt="Your image cannot be viewed" class="img-fluid"/>
+												<img src="${imageURL}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
 											</a>
 											<!-- bg-removed image ends-->
 										</div>
 										<div class="image-content col-md-4">
 											<div class="download-average">
-												<a href="gotten image path" download>Download</a>
+												<button class="download-button" type="button">Download</button>
 												<small>
-													<span>Preview Size: 608 * 410</span>
+													<span>Preview Size: 620 * 380</span>
 												</small>
 											</div>
 										</div>
@@ -256,7 +256,7 @@ function addTemplatesToContent() {
 
 // ! ISSUE DEY OOO, DISPLAYING THE ITEMS TO THE DOM IS WHERE THE ISSUE IS
 //display templates
-function DisplayTemplates(imageHeight, imageWidth) {
+function DisplayTemplates() {
 	const templatesResult = addTemplatesToContent();
 	if (templateArray !== "") {
 		const mainInner = document.querySelector(".main-inner .section-container");
@@ -268,34 +268,20 @@ function DisplayTemplates(imageHeight, imageWidth) {
 	}
 }
 
-const allDownloadButton = document.querySelectorAll(".download-button");
+const allDownloadButton = document.querySelectorAll(".download-average .download-button");
 allDownloadButton.forEach((eachDownloadBtn) => {
 	downloadImage(eachDownloadBtn);
 });
 
 // function to download image when its clicked or its button is clicked
-function downloadImage(element) {
-	element.addEventListener("click", function (e) {
+function downloadImage(downloadBtn) {
+	downloadBtn.addEventListener("click", function (e) {
 		e.stopPropagation();
-		const imageLink = element.parentElement.parentElement.previousElementSibling.firstElementChild;
+		const imageLink = downloadBtn.parentElement.parentElement.previousElementSibling.firstElementChild;
 		imageLink.click();
 	});
 }
 
-function getImageProps() {
-	const originalImage = document.querySelector(".image-wrapper .actual-image img");
-	let image = new Image();
-	image.addEventListener("load", function () {
-		//get the height & width props of the image
-		const [imageHeight, imageWidth] = [image.naturalHeight, image.naturalWidth];
-		DisplayTemplates(imageHeight, imageWidth);
-	});
-	image.src = originalImage.src;
-}
-
-getImageProps();
-
-// ! ISSUE DEY HERE OOO
 // pass templates for id to the delete function
 templateArray.forEach((template) => {
 	const { imageId } = template;
@@ -307,11 +293,12 @@ templateArray.forEach((template) => {
 });
 
 function deleteTemplate(imageId) {
-	let filteredArray;
+	let filteredTemplates;
 	if (templateArray !== "") {
 		// filter the array
-		filteredArray = templateArray.filter((template) => template.imageId !== imageId);
+		filteredTemplates = templateArray.filter((template) => template.imageId !== imageId);
 	}
+	_containerInner.innerHTML = filteredTemplates;
 }
 
 // todos
