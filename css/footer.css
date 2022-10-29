@@ -16,7 +16,7 @@ footer .footer-inner {
 .footer-inner .copy-right span {
 	display: flex;
 	align-items: center;
-	font-size: 0.9rem;
+	font-size: 0.85em;
 	justify-content: center;
 	color: var(--font-color-light-theme);
 }

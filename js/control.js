@@ -54,6 +54,8 @@ const absoluteContainer = document.querySelector(".main-inner");
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
 	apiCall(imageValue); // pass image to the api function
+	let imageValueName = imageValue.name;
+	addTemplatesToContent(imageValueName);
 });
 
 // api call
@@ -154,104 +156,108 @@ const defaultDisplay = `<h1>Upload an image to remove background</h1>
 							</form>`;
 
 //template new template to templates array
-function addTemplatesToContent() {
-	const templates = templateArray.map((eachTemplateItem) => {
-		let templateContent;
-		const { originalImage, imageId, imageURL } = eachTemplateItem;
-		templateContent = `<section class="_image-wrapper" id=${imageId}>
-							<div class="tab-control d-flex align-items-center justify-content-between">
-								<ul class="nav nav-pills" id="pills-tab" role="tablist">
-									<li class="nav-item" role="presentation">
-										<button
-											class="nav-link"
-											id="pills-original-image-tab"
-											data-bs-toggle="pill"
-											data-bs-target="#pills-original-image"
-											type="button"
-											role="tab"
-											aria-controls="pills-original-image"
-											aria-selected="true">
-											Original Image
-										</button>
-									</li>
-									<li class="nav-item" role="presentation">
-										<button
-											class="nav-link active"
-											id="pills-removed-bg-tab"
-											data-bs-toggle="pill"
-											data-bs-target="#pills-removed-bg"
-											type="button"
-											role="tab"
-											aria-controls="pills-removed-bg"
-											aria-selected="false">
-											Removed Background
-										</button>
-									</li>
-								</ul>
-								<button class="close-result">
-									<em>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="1em"
-											height="1em"
-											preserveAspectRatio="xMidYMid meet"
-											viewBox="0 0 20 20">
-											<path
-												fill="currentColor"
-												d="m3.219 2.154l6.778 6.773l6.706-6.705c.457-.407.93-.164 1.119.04a.777.777 0 0 1-.044 1.035l-6.707 6.704l6.707 6.702c.298.25.298.74.059 1.014c-.24.273-.68.431-1.095.107l-6.745-6.749l-6.753 6.752c-.296.265-.784.211-1.025-.052c-.242-.264-.334-.72-.025-1.042l6.729-6.732l-6.701-6.704c-.245-.27-.33-.764 0-1.075c.33-.311.822-.268.997-.068Z" />
-										</svg>
-									</em>
-								</button>
-							</div>
-							<div class="tab-content my-5" id="pills-tabContent">
-								<div
-									class="tab-pane fade "
-									id="pills-original-image"
-									role="tabpanel"
-									aria-labelledby="pills-original-image-tab"
-									tabindex="0">
-									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
-										<div class="image-wrapper col-md-7 p-0">
-											<!-- original image starts-->
-											<a href="${originalImage}" class="img-fluid actual-image" download>
-												<img src="${originalImage}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
-											</a>
-											<!-- original image ends-->
+function addTemplatesToContent(imageValueName) {
+	let template;
+	if (templateArray !== "") {
+		template = templateArray.map((eachTemplateItem) => {
+			let templateContent;
+			const { originalImage, imageId, imageURL } = eachTemplateItem;
+			templateContent = `<section class="_image-wrapper" id=${imageId}>
+								<div class="tab-control d-flex align-items-center justify-content-between">
+									<ul class="nav nav-pills" id="pills-tab" role="tablist">
+										<li class="nav-item" role="presentation">
+											<button
+												class="nav-link"
+												id="pills-original-image-tab"
+												data-bs-toggle="pill"
+												data-bs-target="#pills-original-image"
+												type="button"
+												role="tab"
+												aria-controls="pills-original-image"
+												aria-selected="true">
+												Original Image
+											</button>
+										</li>
+										<li class="nav-item" role="presentation">
+											<button
+												class="nav-link active"
+												id="pills-removed-bg-tab"
+												data-bs-toggle="pill"
+												data-bs-target="#pills-removed-bg"
+												type="button"
+												role="tab"
+												aria-controls="pills-removed-bg"
+												aria-selected="false">
+												Removed Background
+											</button>
+										</li>
+									</ul>
+									<button class="close-result">
+										<em>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="1em"
+												height="1em"
+												preserveAspectRatio="xMidYMid meet"
+												viewBox="0 0 20 20">
+												<path
+													fill="currentColor"
+													d="m3.219 2.154l6.778 6.773l6.706-6.705c.457-.407.93-.164 1.119.04a.777.777 0 0 1-.044 1.035l-6.707 6.704l6.707 6.702c.298.25.298.74.059 1.014c-.24.273-.68.431-1.095.107l-6.745-6.749l-6.753 6.752c-.296.265-.784.211-1.025-.052c-.242-.264-.334-.72-.025-1.042l6.729-6.732l-6.701-6.704c-.245-.27-.33-.764 0-1.075c.33-.311.822-.268.997-.068Z" />
+											</svg>
+										</em>
+									</button>
+								</div>
+								<div class="tab-content my-5" id="pills-tabContent">
+									<div
+										class="tab-pane fade "
+										id="pills-original-image"
+										role="tabpanel"
+										aria-labelledby="pills-original-image-tab"
+										tabindex="0">
+										<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
+											<div class="image-wrapper col-md-7 p-0">
+												<!-- original image starts-->
+												<a href="${originalImage}" class="img-fluid actual-image" download>
+													<img src="${originalImage}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
+												</a>
+												<!-- original image ends-->
+											</div>
+											<div class="image-content col-md-4">
+												<div class="download-average">
+													<button class="download-button" type="button">Download</button>
+													<small>
+														<span>Preview Size: 620 * 380</span>
+													</small>
+												</div>
+											</div>
 										</div>
-										<div class="image-content col-md-4">
-											<div class="download-average">
-												<button class="download-button" type="button">Download</button>
-												<small>
-													<span>Preview Size: 620 * 380</span>
-												</small>
+									</div>
+									<div class="tab-pane fade show active" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
+										<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
+											<div class="image-wrapper rm-bg col-md-7 p-0">
+												<!-- bg-removed image starts-->
+												<a href="${imageURL}" class="img-fluid bg-rmvd-image" download="removeBg.vickkk-${imageValueName}">
+													<img src="${imageURL}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
+												</a>
+												<!-- bg-removed image ends-->
+											</div>
+											<div class="image-content col-md-4">
+												<div class="download-average">
+													<button class="download-button" type="button">Download</button>
+													<small>
+														<span>Preview Size: 620 * 380</span>
+													</small>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane fade show active" id="pills-removed-bg" role="tabpanel" aria-labelledby="pills-removed-bg-tab" tabindex="0">
-									<div class="image-container row col-12 m-0 align-items-center justify-content-evenly">
-										<div class="image-wrapper rm-bg col-md-7 p-0">
-											<!-- bg-removed image starts-->
-											<a href="${imageURL}" class="img-fluid bg-rmvd-image" download="removeBg.vickkk-${originalImage}">
-												<img src="${imageURL}" loading="lazy" alt="Your image cannot be viewed" class="img-fluid"/>
-											</a>
-											<!-- bg-removed image ends-->
-										</div>
-										<div class="image-content col-md-4">
-											<div class="download-average">
-												<button class="download-button" type="button">Download</button>
-												<small>
-													<span>Preview Size: 620 * 380</span>
-												</small>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>`;
-		return templateContent;
-	});
-	return templates;
+							</section>`;
+			return templateContent;
+		});
+	}
+	console.log(template);
+	return template;
 }
 
 // ! ISSUE DEY OOO, DISPLAYING THE ITEMS TO THE DOM IS WHERE THE ISSUE IS
@@ -259,10 +265,10 @@ function addTemplatesToContent() {
 function DisplayTemplates() {
 	const templatesResult = addTemplatesToContent();
 	if (templateArray !== "") {
-		const mainInner = document.querySelector(".main-inner .section-container");
-		mainInner.appendChild(buttonWrapper);
-		_containerInner.innerHTML += templatesResult;
-		// _containerInner.appendChild(templatesResult);
+		_containerInner.innerHTML = "";
+		templatesResult.forEach((template) => {
+			_containerInner.innerHTML += template;
+		});
 	} else {
 		_containerInner.innerHTML = defaultDisplay;
 	}
@@ -279,6 +285,7 @@ function downloadImage(downloadBtn) {
 		e.stopPropagation();
 		const imageLink = downloadBtn.parentElement.parentElement.previousElementSibling.firstElementChild;
 		imageLink.click();
+		imageLink.preventDefault();
 	});
 }
 
@@ -307,7 +314,6 @@ function deleteTemplate(imageId) {
 2. Work on the template button to close it or rather delete it if not needed - ✅💅 Halfway-done
 3. Work on the new button element at the top of all the templates
 4. Fix the templates so that it tallies with the toggles of theme
-5. use the object description about an element property in js to get the properties of the image, then give the width and height of the image - ✅💅Half-way done
-6. The download part of image, create a function for it - ✅done 
-7. The striped white and black image should only show at the removed bg - ✅ done
+5. The download part of image, create a function for it - ✅done 
+6. The striped white and black image should only show at the removed bg - ✅ done
 */
