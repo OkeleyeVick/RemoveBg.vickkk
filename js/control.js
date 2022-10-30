@@ -162,7 +162,7 @@ function addTemplatesToContent(imageValueName) {
 		template = templateArray.map((eachTemplateItem) => {
 			let templateContent;
 			const { originalImage, imageId, imageURL } = eachTemplateItem;
-			templateContent = `<section class="_image-wrapper" id=${imageId}>
+			templateContent = `<section class="_image-wrapper" id=${imageId}> 
 								<div class="tab-control d-flex align-items-center justify-content-between">
 									<ul class="nav nav-pills" id="pills-tab" role="tablist">
 										<li class="nav-item" role="presentation">
