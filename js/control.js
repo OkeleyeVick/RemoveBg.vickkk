@@ -119,6 +119,9 @@ function pushToArrayAndDisplay(finalOriginalImage, image_url, request_id) {
 	DisplayTemplates(); // display content
 }
 
+// image compressor api
+const compressImageSize = function () {};
+
 // default display
 const defaultDisplay = `<h1>Upload an image to remove background</h1> 
 							<form action="" class="form-wrapper">
