@@ -256,7 +256,6 @@ function addTemplatesToContent(imageValueName) {
 			return templateContent;
 		});
 	}
-	console.log(template);
 	return template;
 }
 
