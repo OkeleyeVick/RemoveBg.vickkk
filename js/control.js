@@ -54,9 +54,30 @@ const absoluteContainer = document.querySelector(".main-inner");
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
 	apiCall(imageValue); // pass image to the api function
-	let imageValueName = imageValue.name;
-	addTemplatesToContent(imageValueName);
+	//	 let imageValueName = imageValue.name;
+	// addTemplatesToContent(imageValueName);
 });
+
+// * <========== API TESTS for image compression STARTS HERE ===========>
+// const options = {
+// 	method: "GET",
+// 	headers: {
+// 		"X-RapidAPI-Key": "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a",
+// 		"X-RapidAPI-Host": "imgzips.p.rapidapi.com",
+// 	},
+// };
+
+// const imageURL =
+// 	"https://media.istockphoto.com/photos/portrait-of-confident-and-successful-business-person-in-london-picture-id855856968?k=6&m=855856968&s=170667a&w=0&h=pv80bsJTuYCAn2qOeVDiA3RQ9Kab70xSi72T2la15d0=";
+
+// const URL = `https://imgzips.p.rapidapi.com/v1/optimize?image=${imageURL}`;
+
+// fetch(URL, options)
+// 	.then((response) => response.json())
+// 	.then((response) => console.log(JSON.parse(response)))
+// 	.catch((err) => console.error(err));
+
+// *  <============ API TESTS END HERE ===========>
 
 // api call
 async function apiCall(imageValue) {
@@ -70,29 +91,45 @@ async function apiCall(imageValue) {
 		});
 	}
 
-	const URL = "https://universal-background-removal.p.rapidapi.com/cutout/universal/common-image";
-	const apiKey = "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a";
+	// const URL = "https://universal-background-removal.p.rapidapi.com/cutout/universal/common-image";
+	// const apiKey = "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a";
 
-	const data = new FormData();
-	data.append("image", imageValue);
+	// const data = new FormData();
+	// data.append("image", imageValue);
 
-	const options = {
-		method: "POST",
-		headers: {
-			"X-RapidAPI-Key": `${apiKey}`,
-			"X-RapidAPI-Host": "universal-background-removal.p.rapidapi.com",
-		},
-		body: data,
-	};
+	// const options = {
+	// 	method: "POST",
+	// 	headers: {
+	// 		"X-RapidAPI-Key": `${apiKey}`,
+	// 		"X-RapidAPI-Host": "universal-background-removal.p.rapidapi.com",
+	// 	},
+	// 	body: data,
+	// };
 
-	await fetch(URL, options)
-		.then((response) => response.json())
-		.then((response) => {
-			const [image_url, request_id] = [response.data.image_url, response.request_id];
-			pushToArrayAndDisplay(finalOriginalImage, image_url, request_id);
-		})
-		.catch((err) => console.error(err));
+	// await fetch(URL, options)
+	// 	.then((response) => response.json())
+	// 	.then((response) => {
+	// 		const [image_url, request_id] = [response.data.image_url, response.request_id];
+	// 		pushToArrayAndDisplay(finalOriginalImage, image_url, request_id);
+	// 	})
+	// 	.catch((err) => console.error(err));
 }
+
+const options = {
+	method: "POST",
+	headers: {
+		"content-type": "application/json",
+		"X-API-KEY": "PTG1050-VSN4QBY-MQZHF7M-7AGG2H3", //pixelcleaner api key
+		"X-RapidAPI-Key": "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a",
+		"X-RapidAPI-Host": "background-remover5.p.rapidapi.com",
+	},
+	body: '{"imageBase64":"","imageUrl":"https://cdn.pixabay.com/photo/2013/03/14/06/08/person-93459_640.jpg"}',
+};
+
+fetch("https://background-remover5.p.rapidapi.com/autoremove", options)
+	.then((response) => response.json())
+	.then((response) => console.log(response))
+	.catch((err) => console.error(err));
 
 // array that takes in a list of templates
 let templateArray = [];
@@ -120,7 +157,11 @@ function pushToArrayAndDisplay(finalOriginalImage, image_url, request_id) {
 }
 
 // image compressor api
-const compressImageSize = function () {};
+const compressImageSize = function () {
+	const URL = "";
+};
+
+compressImageSize();
 
 // default display
 const defaultDisplay = `<h1>Upload an image to remove background</h1> 
@@ -165,7 +206,7 @@ function addTemplatesToContent(imageValueName) {
 		template = templateArray.map((eachTemplateItem) => {
 			let templateContent;
 			const { originalImage, imageId, imageURL } = eachTemplateItem;
-			templateContent = `<section class="_image-wrapper" id=${imageId}> 
+			templateContent = `<section class="_image-wrapper" id=${imageId}>
 								<div class="tab-control d-flex align-items-center justify-content-between">
 									<ul class="nav nav-pills" id="pills-tab" role="tablist">
 										<li class="nav-item" role="presentation">
