@@ -58,27 +58,6 @@ inputFile.addEventListener("change", (e) => {
 	// addTemplatesToContent(imageValueName);
 });
 
-// * <========== API TESTS for image compression STARTS HERE ===========>
-// const options = {
-// 	method: "GET",
-// 	headers: {
-// 		"X-RapidAPI-Key": "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a",
-// 		"X-RapidAPI-Host": "imgzips.p.rapidapi.com",
-// 	},
-// };
-
-// const imageURL =
-// 	"https://media.istockphoto.com/photos/portrait-of-confident-and-successful-business-person-in-london-picture-id855856968?k=6&m=855856968&s=170667a&w=0&h=pv80bsJTuYCAn2qOeVDiA3RQ9Kab70xSi72T2la15d0=";
-
-// const URL = `https://imgzips.p.rapidapi.com/v1/optimize?image=${imageURL}`;
-
-// fetch(URL, options)
-// 	.then((response) => response.json())
-// 	.then((response) => console.log(JSON.parse(response)))
-// 	.catch((err) => console.error(err));
-
-// *  <============ API TESTS END HERE ===========>
-
 // api call
 async function apiCall(imageValue) {
 	let finalOriginalImage; //original image
@@ -115,21 +94,7 @@ async function apiCall(imageValue) {
 	// 	.catch((err) => console.error(err));
 }
 
-const options = {
-	method: "POST",
-	headers: {
-		"content-type": "application/json",
-		"X-API-KEY": "PTG1050-VSN4QBY-MQZHF7M-7AGG2H3", //pixelcleaner api key
-		"X-RapidAPI-Key": "6473c3ce7dmsh28c8afd093343dep1d0f1fjsn02e8bc02b53a",
-		"X-RapidAPI-Host": "background-remover5.p.rapidapi.com",
-	},
-	body: '{"imageBase64":"","imageUrl":"https://cdn.pixabay.com/photo/2013/03/14/06/08/person-93459_640.jpg"}',
-};
-
-fetch("https://background-remover5.p.rapidapi.com/autoremove", options)
-	.then((response) => response.json())
-	.then((response) => console.log(response))
-	.catch((err) => console.error(err));
+// "https://cdn.pixabay.com/photo/2013/03/14/06/08/person-93459_640.jpg"
 
 // array that takes in a list of templates
 let templateArray = [];
@@ -179,7 +144,7 @@ const defaultDisplay = `<h1>Upload an image to remove background</h1>
 													xmlns="http://www.w3.org/2000/svg"
 													width="1em"
 													height="1em"
-													preserveAspectRatio="xMidYMid meet"
+						           							preserveAspectRatio="xMidYMid meet"
 													viewBox="0 0 24 24">
 													<g
 														fill="none"
