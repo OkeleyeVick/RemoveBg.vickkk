@@ -12,7 +12,7 @@ function callCustomInput(e) {
 
 const _containerInner = document.querySelector("._container-inner");
 const inputFile = document.getElementById("imageFile");
-const absoluteContainer = document.querySelector(".main-inner");
+const absoluteContainer = document.querySelector(".main-inner .container");
 
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
@@ -71,9 +71,8 @@ async function apiCall(imageValue) {
 				const deleteIcon = document.querySelector("._image-wrapper button.close-result");
 				deleteIcon.addEventListener("click", (e) => {
 					e.stopPropagation();
-					_containerInner.remove(section);
-					// ! this doesn't work, pasting the default to the screen
-					_containerInner.innerHTML += $clonedDefault;
+					_containerInner.removeChild(section);
+					_containerInner.appendChild($clonedDefault);
 				});
 			})
 			.catch((err) => console.error(err));

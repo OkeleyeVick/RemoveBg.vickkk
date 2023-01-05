@@ -174,7 +174,21 @@
 .tab-control button.close-result em {
 	line-height: 1;
 	display: flex;
-	font-size: 1.5rem;
+	font-size: 1.3rem;
+}
+.tab-control button.close-result {
+	padding: 8px;
+	border-radius: 100vw;
+	transition: all 300ms ease-in-out;
+}
+.tab-control button.close-result:hover {
+	background-color: var(--dark-grey);
+}
+.tab-control button.close-result em {
+	transition: all 280ms ease-in-out;
+}
+.tab-control button.close-result:hover em {
+	color: var(--white);
 }
 .tab-content .download-average {
 	display: flex;
@@ -223,7 +237,7 @@
 .wrapper main {
 	text-align: center;
 }
-._container-inner form .form-control {
+#imageFile {
 	opacity: 0;
 	visibility: hidden;
 	display: none;
