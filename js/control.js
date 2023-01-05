@@ -14,7 +14,6 @@ const _containerInner = document.querySelector("._container-inner");
 const inputFile = document.getElementById("imageFile");
 const absoluteContainer = document.querySelector(".main-inner");
 
-// main actions
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
 	apiCall(imageValue); // pass image to the api function
@@ -47,7 +46,6 @@ async function apiCall(imageValue) {
 			.then((response) => response.json())
 			.then((response) => {
 				const [image_url, request_id] = [response.data.image_url, response.request_id];
-				// console.log(finalOriginalImage, image_url, request_id);
 				// clean and empty the dom
 				_containerInner.innerHTML = "";
 
@@ -66,7 +64,26 @@ async function apiCall(imageValue) {
 
 				// add tabs and pills to screen
 				_containerInner.appendChild($imageTemplate); //paste final result to screen
+
+				const defaultView = document.getElementById("default");
+				const $clonedDefault = defaultView.content.cloneNode(true);
+				const section = document.querySelector("._image-wrapper");
+				const deleteIcon = document.querySelector("._image-wrapper button.close-result");
+				deleteIcon.addEventListener("click", (e) => {
+					e.stopPropagation();
+					_containerInner.remove(section);
+
+					// ! this doesn't work, pasting the default to the screen
+					_containerInner.innerHTML = $clonedDefault;
+				});
 			})
 			.catch((err) => console.error(err));
 	}
 }
+
+// left to do
+// 1. Default view when you clear the template
+// 2. Probability to do add a skeleton loader
+// 3. the download button so that the image can download
+// 4. Image after the API has finished
+// 	- Download some kind of 404 image to make use of
