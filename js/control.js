@@ -72,9 +72,8 @@ async function apiCall(imageValue) {
 				deleteIcon.addEventListener("click", (e) => {
 					e.stopPropagation();
 					_containerInner.remove(section);
-
 					// ! this doesn't work, pasting the default to the screen
-					_containerInner.innerHTML = $clonedDefault;
+					_containerInner.innerHTML += $clonedDefault;
 				});
 			})
 			.catch((err) => console.error(err));
