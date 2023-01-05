@@ -1,14 +1,13 @@
 const custom_button = document.querySelector("._custom-button button");
 const default_input = document.querySelector("form input[type='file']");
 
-// customInput with icon
-custom_button.addEventListener("click", callCustomInput);
-
 // call custom input
 function callCustomInput(e) {
 	e.stopPropagation();
 	default_input.click();
 }
+// customInput with icon
+custom_button.addEventListener("click", callCustomInput);
 
 const _containerInner = document.querySelector("._container-inner");
 const inputFile = document.getElementById("imageFile");
@@ -43,7 +42,10 @@ async function apiCall(imageValue) {
 			body: data,
 		};
 		await fetch(URL, options)
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) throw "Unexpected error occurred, try again. If this keeps happening, try again later. Thank you";
+				return response.json();
+			})
 			.then((response) => {
 				const [image_url, request_id] = [response.data.image_url, response.request_id];
 				// clean and empty the dom
@@ -71,13 +73,36 @@ async function apiCall(imageValue) {
 				const deleteIcon = document.querySelector("._image-wrapper button.close-result");
 				deleteIcon.addEventListener("click", (e) => {
 					e.stopPropagation();
-					_containerInner.removeChild(section);
+					_containerInner.innerHTML = "";
 					_containerInner.appendChild($clonedDefault);
 				});
 			})
-			.catch((err) => console.error(err));
+			.catch((error) => {
+				_containerInner.innerHTML = "";
+				const img = document.createElement("img"); //create img tag
+				img.className = "img-fluid";
+				img.style = "max-width: 300px";
+				img.setAttribute("alt", "");
+				img.src = image[0].src ?? image[1].src;
+
+				const h4 = document.createElement("h4");
+				const text = document.createTextNode(error);
+				h4.appendChild(text);
+
+				_containerInner.appendChild(img);
+				_containerInner.appendChild(h4);
+			});
 	}
 }
+
+const image = [
+	{
+		src: "./../images/errorpage-vg.svg",
+	},
+	{
+		src: "./../images/errorpage.png",
+	},
+];
 
 // left to do
 // 1. Default view when you clear the template

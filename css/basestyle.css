@@ -101,25 +101,12 @@
 	width: 160px;
 	border-radius: 5px;
 }
-.wrapper {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	-ms-flex-direction: column;
-	justify-content: space-between;
-}
+
 .skeleton._custom-button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-top: 2rem;
-}
-.wrapper {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	-ms-flex-direction: column;
-	justify-content: space-between;
 }
 .wrapper main {
 	text-align: center;
@@ -226,13 +213,6 @@
 	border-bottom: 2px solid var(--blue);
 	color: var(--blue);
 	font-weight: 600;
-}
-.wrapper {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	-ms-flex-direction: column;
-	justify-content: space-between;
 }
 .wrapper main {
 	text-align: center;

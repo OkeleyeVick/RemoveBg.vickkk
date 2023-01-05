@@ -70,12 +70,16 @@ body.dark {
 	position: relative;
 }
 .wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	-ms-flex-direction: column;
+	justify-content: space-between;
 	-webkit-transition: 100ms ease;
 	-moz-transition: 100ms ease;
 	-ms-transition: 100ms ease;
 	-o-transition: 100ms ease;
 	transition: 100ms ease;
-	background-color: var(--font-color-light-theme);
 }
 header #logo {
 	color: var(--font-color-dark-theme);
@@ -117,21 +121,6 @@ header nav ._nav-links {
 header nav .nav-theme {
 	column-gap: 2rem;
 	justify-content: flex-end;
-}
-header nav .nav-theme .nav-theme-toggler {
-	line-height: 1;
-	display: flex;
-}
-header nav .nav-theme .nav-theme-toggler em {
-	font-size: 1.8rem;
-	line-height: 1;
-	color: var(--font-color-dark-theme);
-	display: flex;
-	-webkit-transition: 300ms ease-in;
-	-moz-transition: 300ms ease-in;
-	-ms-transition: 300ms ease-in;
-	-o-transition: 300ms ease-in;
-	transition: 300ms ease-in;
 }
 header nav .nav-theme .git-hub em {
 	font-size: 2rem;
