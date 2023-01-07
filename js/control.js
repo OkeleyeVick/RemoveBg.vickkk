@@ -15,10 +15,11 @@ const absoluteContainer = document.querySelector(".main-inner .container");
 
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
-	apiCall(imageValue); // pass image to the api function
+	const fileName = imageValue.name;
+	apiCall(imageValue, fileName); // pass image to the api function
 });
 
-async function apiCall(imageValue) {
+async function apiCall(imageValue, fileName) {
 	let finalOriginalImage; //original image
 
 	if (imageValue) {
@@ -63,6 +64,7 @@ async function apiCall(imageValue) {
 				//paste the bg-removed image to anchor tag href and img src attribute
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").href = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image img").src = image_url;
+				rmvdImageTabContent.querySelector(".bg-rmvd-image").download = `removebg-vickkk-${fileName}`;
 
 				// add tabs and pills to screen
 				_containerInner.appendChild($imageTemplate); //paste final result to screen
@@ -105,8 +107,5 @@ const image = [
 ];
 
 // left to do
-// 1. Default view when you clear the template
-// 2. Probability to do add a skeleton loader
-// 3. the download button so that the image can download
-// 4. Image after the API has finished
-// 	- Download some kind of 404 image to make use of
+// 1. Default view when you clear the template =>  works but button isn't working
+// 2. the download button so that the image can download
