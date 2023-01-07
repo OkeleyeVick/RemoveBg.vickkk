@@ -127,6 +127,17 @@
 	color: var(--font-color-dark-theme);
 	font-size: 2.9rem;
 }
+@media all and (max-width: 600px) {
+	._container-inner h1 {
+		font-size: 2rem;
+	}
+}
+@media only screen and (max-width: 400px) {
+	._container-inner h1 {
+		font-size: 1.7rem;
+	}
+}
+
 ._custom-button {
 	display: flex;
 	align-items: center;

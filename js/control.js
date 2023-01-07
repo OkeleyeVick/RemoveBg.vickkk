@@ -62,6 +62,7 @@ async function apiCall(imageValue, fileName) {
 				realImageTabContent.querySelector(".image-wrapper img.img-fluid").src = finalOriginalImage;
 
 				//paste the bg-removed image to anchor tag href and img src attribute
+				rmvdImageTabContent.querySelector("#pills-removed-bg a.download-button").href = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").href = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image img").src = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").download = `removebg-vickkk-${fileName}`;

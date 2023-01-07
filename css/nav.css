@@ -171,4 +171,7 @@ header nav .nav-theme .git-hub em {
 	html {
 		font-size: 14px;
 	}
+	._container-inner h1 {
+		font-size: 1.5rem;
+	}
 }
