@@ -16,7 +16,7 @@ const absoluteContainer = document.querySelector(".main-inner .container");
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
 	const fileName = imageValue.name;
-	apiCall(imageValue, fileName); // pass image to the api function
+	apiCall(imageValue, fileName, imageSource); // pass image to the api function
 });
 
 async function apiCall(imageValue, fileName) {
@@ -62,7 +62,7 @@ async function apiCall(imageValue, fileName) {
 				realImageTabContent.querySelector(".image-wrapper img.img-fluid").src = finalOriginalImage;
 
 				//paste the bg-removed image to anchor tag href and img src attribute
-				rmvdImageTabContent.querySelector("#pills-removed-bg a.download-button").href = image_url;
+				rmvdImageTabContent.querySelector("#pills-removed-bg a.download-button").href = `${image_url}`;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").href = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image img").src = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").download = `removebg-vickkk-${fileName}`;
