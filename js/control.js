@@ -5,6 +5,7 @@ const default_input = document.querySelector("form input[type='file']");
 function callCustomInput(e) {
 	e.stopPropagation();
 	default_input.click();
+	console.log(e.target + " was clicked!");
 }
 // customInput with icon
 custom_button.addEventListener("click", callCustomInput);
@@ -16,7 +17,7 @@ const absoluteContainer = document.querySelector(".main-inner .container");
 inputFile.addEventListener("change", (e) => {
 	let imageValue = e.target.files[0];
 	const fileName = imageValue.name;
-	apiCall(imageValue, fileName, imageSource); // pass image to the api function
+	apiCall(imageValue, fileName); // pass image to the api function
 });
 
 async function apiCall(imageValue, fileName) {
@@ -62,7 +63,6 @@ async function apiCall(imageValue, fileName) {
 				realImageTabContent.querySelector(".image-wrapper img.img-fluid").src = finalOriginalImage;
 
 				//paste the bg-removed image to anchor tag href and img src attribute
-				rmvdImageTabContent.querySelector("#pills-removed-bg a.download-button").href = `${image_url}`;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").href = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image img").src = image_url;
 				rmvdImageTabContent.querySelector(".bg-rmvd-image").download = `removebg-vickkk-${fileName}`;
@@ -72,12 +72,19 @@ async function apiCall(imageValue, fileName) {
 
 				const defaultView = document.getElementById("default");
 				const $clonedDefault = defaultView.content.cloneNode(true);
-				const section = document.querySelector("._image-wrapper");
+				const defaultInner = $clonedDefault.querySelector(".default-inner");
+				const section = $clonedDefault.querySelector("._image-wrapper");
 				const deleteIcon = document.querySelector("._image-wrapper button.close-result");
 				deleteIcon.addEventListener("click", (e) => {
 					e.stopPropagation();
-					_containerInner.innerHTML = "";
-					_containerInner.appendChild($clonedDefault);
+					// <===== check this out later ======>
+					// putting default page to the dom
+					section.remove(); //the template removes itself
+					_containerInner.appendChild(defaultInner);
+					_containerInner.innerHTML += "<hr/>";
+					_containerInner.append(defaultInner);
+					custom_button.addEventListener("click", callCustomInput);
+					// <===== ends here ======>
 				});
 			})
 			.catch((error) => {
